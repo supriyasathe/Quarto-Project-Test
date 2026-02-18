@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Supriya Sathe (Advisor: Dr.&nbsp;Cohen)">
-<meta name="author" content="Supervisor: Dr.&nbsp;Cohen">
 
 <title>Explainable Agentic AI for Credit Risk Assessment using LightGBM – LightGBM Agentic AI Credit Risk</title>
 <style>
@@ -21,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -259,11 +293,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./report.html"> 
+    <a class="nav-link active" href="./report.html" aria-current="page"> 
 <span class="menu-text">Report</span></a>
   </li>  
   <li class="nav-item">
@@ -288,11 +322,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1. Introduction</a></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">2. Methods</a></li>
-  <li><a href="#analysis-and-results" id="toc-analysis-and-results" class="nav-link" data-scroll-target="#analysis-and-results">3. Analysis and Results</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">4. Conclusion</a></li>
-  <li><a href="#literature-review" id="toc-literature-review" class="nav-link" data-scroll-target="#literature-review">Literature Review</a></li>
+  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link active" data-scroll-target="#load-libraries">Load Libraries</a></li>
+  <li><a href="#import-dataset" id="toc-import-dataset" class="nav-link" data-scroll-target="#import-dataset">Import Dataset</a></li>
   </ul>
 </nav>
     </div>
@@ -310,10 +341,9 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
              <p><a href="https://github.com/supriyasathe">Supriya Sathe (Advisor: Dr.&nbsp;Cohen)</a> </p>
-             <p>Supervisor: Dr.&nbsp;Cohen </p>
           </div>
   </div>
     
@@ -326,35 +356,132 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
-<p>A vital role for financial institutions is evaluating credit risk, which has a direct impact on lending choices, portfolio performance, and regulatory compliance. Because they are straightforward and easy to understand, traditional credit scoring techniques like logistic regression have gained widespread use. These conventional models, however, find it difficult to account for nonlinear patterns and complicated borrower behaviors as financial data grows in size, complexity, and heterogeneity.</p>
-<p>The predictive accuracy of credit risk modeling has greatly increased as a result of recent developments in machine learning, especially ensemble-based techniques like Gradient Boosting Decision Trees (GBDT). Among these techniques, the Light Gradient Boosting Machine (LightGBM) has shown itself to be a very effective and scalable framework that can deal with imbalanced and high-dimensional credit datasets. Although LightGBM performs well, it is frequently perceived as a “black-box” paradigm, which restricts transparency and undermines confidence among auditors, regulators, and business users.</p>
-<p>This paper suggests an Explainable Agentic AI framework for credit risk assessment utilizing LightGBM in order to overcome these issues. The framework combines an intelligent agentic decision layer that analyzes model predictions, produces insightful explanations, and suggests suitable courses of action with SHAP-based explainability. The suggested approach seeks to facilitate responsible and explicable credit decision-making in regulated financial environments by fusing prediction accuracy, transparency, and adaptive reasoning.</p>
-<hr>
+<p>This project is focused on experimenting with the code chunks to ingest and analyse the dataset as a preliminary analysis.</p>
+<p>For the project remember to add the appropriate flags into the code chunks otherwise everything will be rendered.</p>
+<p>Below are example of flags for the code chunk also a code chunk with double curly brackest is not executable {{r}}:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="load-libraries" class="level2">
+<h2 class="anchored" data-anchor-id="load-libraries">Load Libraries</h2>
+<p>This code chunk is loading all libraries being used in the project.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(packages)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Libraries</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
 </section>
-<section id="methods" class="level2">
-<h2 class="anchored" data-anchor-id="methods">2. Methods</h2>
-<hr>
-</section>
-<section id="analysis-and-results" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-and-results">3. Analysis and Results</h2>
-<hr>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">4. Conclusion</h2>
-<hr>
-</section>
-<section id="literature-review" class="level2">
-<h2 class="anchored" data-anchor-id="literature-review">Literature Review</h2>
-<p>Five active research pillars form the basis of this project:</p>
-<ol type="1">
-<li><p>Credit Risk Modeling The statistical techniques used in early credit risk models, including logistic regression, are interpretable but outperform when applied to complicated, non-linear data. Recent studies have demonstrated that machine learning models, particularly ensemble approaches, greatly increase prediction accuracy. The most advanced models for structured financial data are gradient boosting models like XGBoost and LightGBM. LightGBM provides great speed, scalability, and efficiency for big credit datasets.</p></li>
-<li><p>Explainable Artificial Intelligence (XAI) The black-box character of machine learning models is addressed by explainable AI. By demonstrating how features affect predictions, methods like LIME and SHAP offer both local and global explanations. Because SHAP is theoretically sound and enhances model validation, regulatory compliance, and trust, it is very useful in the finance sector.</p></li>
-<li><p>Interpretability in Financial Systems Automated decision systems must be fair, transparent, and accountable in order to comply with financial requirements. Explainable models are especially important in high-risk fields like credit scoring, where interpretability must be human-centered and adhere to ethical and regulatory norms.</p></li>
-<li><p>Agentic AI in Decision Systems By assessing outputs and suggesting actions, agentic AI systems surpass prediction. Agentic frameworks can combine explanation signals, risk thresholds, and model projections to initiate the proper reactions—approvals, rejections, or manual reviews—in financial decision-making. By verifying that decisions are transparent, flexible, and in line with human oversight, the combination of explainable models with agentic AI allows for responsible automation.</p></li>
-<li><p>Research Gap Few systems combine agentic decision-making, explainability, and predictive modeling into a single framework, despite the widespread use of LightGBM and SHAP. By putting out an Explainable Agentic AI system for credit risk assessment, this project fills this gap.</p></li>
-</ol>
+<section id="import-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="import-dataset">Import Dataset</h2>
+<p>This code chunk is importing the dataset from the folder datasets which it is finding at the root of the github repo and it is concatenating the path to run the function read_csv from tidyverse.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>find_git_root <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">start =</span> <span class="fu">getwd</span>()) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  path <span class="ot">&lt;-</span> <span class="fu">normalizePath</span>(start, <span class="at">winslash =</span> <span class="st">"/"</span>, <span class="at">mustWork =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (path <span class="sc">!=</span> <span class="fu">dirname</span>(path)) {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">dir.exists</span>(<span class="fu">file.path</span>(path, <span class="st">".git"</span>))) <span class="fu">return</span>(path)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">dirname</span>(path)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">"No .git directory found — are you inside a Git repository?"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>repo_root <span class="ot">&lt;-</span> <span class="fu">find_git_root</span>()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>datasets_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(repo_root, <span class="st">"datasets"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading the datafile credit_risk_dataset.csv</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>credit_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(datasets_path, <span class="st">"credit_risk_dataset.csv"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>credit1 <span class="ot">=</span> <span class="fu">read_csv</span>(credit_path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>NOTE:</p>
+<p>these shorcuts are helpfull when debugging or testing code chunks</p>
+<ul>
+<li>Ctrl + Enter (Windows/Linux) or Cmd + Enter (Mac) will execute the current line the cursor is on.</li>
+<li>Shift + Enter (Windows/Linux and Mac) will execute the currently highlighted multiple lines of code.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(credit1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   person_age     person_income     person_home_ownership person_emp_length
+ Min.   : 20.00   Min.   :   4000   Length:32581          Min.   :  0.00   
+ 1st Qu.: 23.00   1st Qu.:  38500   Class :character      1st Qu.:  2.00   
+ Median : 26.00   Median :  55000   Mode  :character      Median :  4.00   
+ Mean   : 27.73   Mean   :  66075                         Mean   :  4.79   
+ 3rd Qu.: 30.00   3rd Qu.:  79200                         3rd Qu.:  7.00   
+ Max.   :144.00   Max.   :6000000                         Max.   :123.00   
+                                                          NA's   :895      
+ loan_intent         loan_grade          loan_amnt     loan_int_rate  
+ Length:32581       Length:32581       Min.   :  500   Min.   : 5.42  
+ Class :character   Class :character   1st Qu.: 5000   1st Qu.: 7.90  
+ Mode  :character   Mode  :character   Median : 8000   Median :10.99  
+                                       Mean   : 9589   Mean   :11.01  
+                                       3rd Qu.:12200   3rd Qu.:13.47  
+                                       Max.   :35000   Max.   :23.22  
+                                                       NA's   :3116   
+  loan_status     loan_percent_income cb_person_default_on_file
+ Min.   :0.0000   Min.   :0.0000      Length:32581             
+ 1st Qu.:0.0000   1st Qu.:0.0900      Class :character         
+ Median :0.0000   Median :0.1500      Mode  :character         
+ Mean   :0.2182   Mean   :0.1702                               
+ 3rd Qu.:0.0000   3rd Qu.:0.2300                               
+ Max.   :1.0000   Max.   :0.8300                               
+                                                               
+ cb_person_cred_hist_length
+ Min.   : 2.000            
+ 1st Qu.: 3.000            
+ Median : 4.000            
+ Mean   : 5.804            
+ 3rd Qu.: 8.000            
+ Max.   :30.000            
+                           </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(credit1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 12
+  person_age person_income person_home_ownership person_emp_length loan_intent
+       &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;                             &lt;dbl&gt; &lt;chr&gt;      
+1         22         59000 RENT                                123 PERSONAL   
+2         21          9600 OWN                                   5 EDUCATION  
+3         25          9600 MORTGAGE                              1 MEDICAL    
+4         23         65500 RENT                                  4 MEDICAL    
+5         24         54400 RENT                                  8 MEDICAL    
+6         21          9900 OWN                                   2 VENTURE    
+# ℹ 7 more variables: loan_grade &lt;chr&gt;, loan_amnt &lt;dbl&gt;, loan_int_rate &lt;dbl&gt;,
+#   loan_status &lt;dbl&gt;, loan_percent_income &lt;dbl&gt;,
+#   cb_person_default_on_file &lt;chr&gt;, cb_person_cred_hist_length &lt;dbl&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count total NAs per column</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(credit1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                person_age              person_income 
+                         0                          0 
+     person_home_ownership          person_emp_length 
+                         0                        895 
+               loan_intent                 loan_grade 
+                         0                          0 
+                 loan_amnt              loan_int_rate 
+                         0                       3116 
+               loan_status        loan_percent_income 
+                         0                          0 
+ cb_person_default_on_file cb_person_cred_hist_length 
+                         0                          0 </code></pre>
+</div>
+</div>
+<p>we found that:</p>
+<ul>
+<li>person_emp_length has 895 NA values</li>
+<li>loan_int_rate has 3116 NA values</li>
+</ul>
 
 
 </section>

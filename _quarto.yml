@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "IDC-2026 Spring Capston"
+  title: "LightGBM Agentic AI Credit Risk"
   navbar:
     tools:
       - icon: github

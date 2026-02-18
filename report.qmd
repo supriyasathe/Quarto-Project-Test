@@ -3,10 +3,26 @@ title: "Explainable Agentic AI for Credit Risk Assessment using LightGBM"
 author:
   - name: "Supriya Sathe (Advisor: Dr. Cohen)"
     url: https://github.com/supriyasathe
-  - name: "Supervisor: Dr. Cohen"
 bibliography: references.bib
 link-citations: true
 ---
+
+This project is focused on experimenting with the code chunks to ingest and analyse the dataset as a preliminary analysis.
+
+For the project remember to add the appropriate flags into the code chunks otherwise everything will be rendered.
+
+Below are example of flags for the code chunk also a code chunk with double curly brackest is not executable {{r}}:
+
+```{{r}}
+#| code-fold: true
+#| message: false
+#| warning: false
+#| output: false
+```
+
+## Load Libraries
+
+This code chunk is loading all libraries being used in the project.
 
 ```{r}
 #| code-fold: true
@@ -14,7 +30,7 @@ link-citations: true
 #| warning: false
 #| output: false
 
-packages <- c("tidyverse")
+packages <- c("tidyverse", "skimr")
 # install.packages(packages)
 # Load Libraries
 lapply(packages, library, character.only = TRUE)
@@ -23,8 +39,9 @@ set.seed(123)
 ```
 
 
-## Dataset Experiments
+## Import Dataset
 
+This code chunk is importing the dataset from the folder datasets which it is finding at the root of the github repo and it is concatenating the path to run the function read_csv from tidyverse.
 
 ```{r}
 #| code-fold: true
@@ -41,13 +58,28 @@ find_git_root <- function(start = getwd()) {
 repo_root <- find_git_root()
 datasets_path <- file.path(repo_root, "datasets")
 
-# Reading the datafile healthcare-dataset-stroke-data
+# Reading the datafile credit_risk_dataset.csv
 credit_path <- file.path(datasets_path, "credit_risk_dataset.csv")
 credit1 = read_csv(credit_path, show_col_types = FALSE)
 ```
 
+NOTE:
+
+these shorcuts are helpfull when debugging or testing code chunks
+
+- Ctrl + Enter (Windows/Linux) or Cmd + Enter (Mac) will execute the current line the cursor is on.
+- Shift + Enter (Windows/Linux and Mac) will execute the currently highlighted multiple lines of code.
+
 
 ```{r}
 summary(credit1)
+head(credit1)
+# Count total NAs per column
+colSums(is.na(credit1))
 ```
+
+we found that:
+
+- person_emp_length has 895 NA values
+- loan_int_rate has 3116 NA values
 

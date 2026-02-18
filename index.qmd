@@ -10,6 +10,7 @@ link-citations: true
 
 
 
+
 ## 1. Introduction
 
 A vital role for financial institutions is evaluating credit risk, which has a direct impact on lending choices, portfolio performance, and regulatory compliance. Because they are straightforward and easy to understand, traditional credit scoring techniques like logistic regression have gained widespread use. These conventional models, however, find it difficult to account for nonlinear patterns and complicated borrower behaviors as financial data grows in size, complexity, and heterogeneity.

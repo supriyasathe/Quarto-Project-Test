@@ -1,0 +1,53 @@
+---
+title: "Explainable Agentic AI for Credit Risk Assessment using LightGBM"
+author:
+  - name: "Supriya Sathe (Advisor: Dr. Cohen)"
+    url: https://github.com/supriyasathe
+  - name: "Supervisor: Dr. Cohen"
+bibliography: references.bib
+link-citations: true
+---
+
+```{r}
+#| code-fold: true
+#| message: false
+#| warning: false
+#| output: false
+
+packages <- c("tidyverse")
+# install.packages(packages)
+# Load Libraries
+lapply(packages, library, character.only = TRUE)
+# Set seed for reproducibility
+set.seed(123)
+```
+
+
+## Dataset Experiments
+
+
+```{r}
+#| code-fold: true
+#| output: false
+find_git_root <- function(start = getwd()) {
+  path <- normalizePath(start, winslash = "/", mustWork = TRUE)
+  while (path != dirname(path)) {
+    if (dir.exists(file.path(path, ".git"))) return(path)
+    path <- dirname(path)
+  }
+  stop("No .git directory found — are you inside a Git repository?")
+}
+
+repo_root <- find_git_root()
+datasets_path <- file.path(repo_root, "datasets")
+
+# Reading the datafile healthcare-dataset-stroke-data
+credit_path <- file.path(datasets_path, "credit_risk_dataset.csv")
+credit1 = read_csv(credit_path, show_col_types = FALSE)
+```
+
+
+```{r}
+summary(credit1)
+```
+
